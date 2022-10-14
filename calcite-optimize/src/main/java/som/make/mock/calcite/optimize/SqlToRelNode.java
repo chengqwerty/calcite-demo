@@ -1,11 +1,15 @@
 package som.make.mock.calcite.optimize;
 
+import org.apache.calcite.adapter.enumerable.EnumerableConvention;
 import org.apache.calcite.config.Lex;
 import org.apache.calcite.jdbc.JavaTypeFactoryImpl;
+import org.apache.calcite.plan.ConventionTraitDef;
 import org.apache.calcite.plan.RelOptCluster;
 import org.apache.calcite.plan.RelOptPlanner;
+import org.apache.calcite.plan.volcano.VolcanoPlanner;
 import org.apache.calcite.prepare.CalciteCatalogReader;
 import org.apache.calcite.prepare.PlannerImpl;
+import org.apache.calcite.rel.RelDistributionTraitDef;
 import org.apache.calcite.rel.RelNode;
 import org.apache.calcite.rel.RelRoot;
 import org.apache.calcite.rel.type.RelDataTypeSystem;
@@ -75,6 +79,9 @@ public class SqlToRelNode {
         SqlParser.Config sqlConfig = SqlParser.config().withLex(Lex.MYSQL).withCaseSensitive(false);
         SqlToRelConverter.Config sqlToRelConfig = SqlToRelConverter.config();
         SchemaPlus rootSchema = Frameworks.createRootSchema(true);
+//        VolcanoPlanner planner = new VolcanoPlanner();
+//        planner.addRelTraitDef(ConventionTraitDef.INSTANCE);
+//        planner.addRelTraitDef(RelDistributionTraitDef.INSTANCE);
         final FrameworkConfig frameworkConfig = Frameworks.newConfigBuilder()
                 .parserConfig(sqlConfig)
                 .sqlToRelConverterConfig(sqlToRelConfig)
