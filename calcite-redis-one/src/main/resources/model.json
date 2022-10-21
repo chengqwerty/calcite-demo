@@ -1,0 +1,109 @@
+{
+  "version": "1.0",
+  "defaultSchema": "redis",
+  "schemas": [
+    {
+      "type": "custom",
+      "name": "redis",
+      "factory": "som.make.mock.calcite.redis.RedisSchemaFactory",
+      "operand": {
+        "host": "172.16.180.242",
+        "port": 6379,
+        "database": 0,
+        "password": ""
+      },
+      "tables": [
+        {
+          "name": "user:token:s0001",
+          "factory": "som.make.mock.calcite.redis.RedisTableFactory",
+          "operand": {
+            "dataFormat": "raw",
+            "fields": [
+              {
+                "name": "key",
+                "type": "varchar",
+                "mapping": "key"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user:message:s0001",
+          "factory": "som.make.mock.calcite.redis.RedisTableFactory",
+          "operand": {
+            "dataFormat": "json",
+            "fields": [
+              {
+                "name": "name",
+                "type": "varchar",
+                "mapping": "name"
+              },
+              {
+                "name": "sex",
+                "type": "varchar",
+                "mapping": "sex"
+              }
+            ]
+          }
+        },
+        {
+          "name": "list_raw_01",
+          "factory": "som.make.mock.calcite.redis.RedisTableFactory",
+          "operand": {
+            "dataFormat": "raw",
+            "fields": [
+              {
+                "name": "name",
+                "type": "varchar",
+                "mapping": "name"
+              }
+            ]
+          }
+        },
+        {
+          "name": "list_json_01",
+          "factory": "som.make.mock.calcite.redis.RedisTableFactory",
+          "operand": {
+            "dataFormat": "json",
+            "fields": [
+              {
+                "name": "name",
+                "type": "varchar",
+                "mapping": "name"
+              },
+              {
+                "name": "sex",
+                "type": "varchar",
+                "mapping": "sex"
+              }
+            ]
+          }
+        },
+        {
+          "name": "hash_raw_01",
+          "factory": "som.make.mock.calcite.redis.RedisTableFactory",
+          "operand": {
+            "dataFormat": "raw",
+            "fields": [
+              {
+                "name": "name",
+                "type": "varchar",
+                "mapping": "name"
+              },
+              {
+                "name": "description",
+                "type": "varchar",
+                "mapping": "description"
+              },
+              {
+                "name": "age",
+                "type": "varchar",
+                "mapping": "age"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

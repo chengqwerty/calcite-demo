@@ -1,0 +1,16 @@
+{
+  "version": "1.0",
+  "defaultSchema": "mysql",
+  "schemas": [
+    {
+      "type": "custom",
+      "name": "redis",
+      "factory": "som.make.mock.calcite.mysql.MysqlSchemaFactory",
+      "operand": {
+        "url": "jdbc:mysql://10.122.50.83:3390/db_calcite",
+        "username": "calcite",
+        "password": "Calcite_123"
+      }
+    }
+  ]
+}
