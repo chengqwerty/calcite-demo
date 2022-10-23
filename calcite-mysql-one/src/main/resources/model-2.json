@@ -1,0 +1,16 @@
+{
+  "version": "1.0",
+  "defaultSchema": "mysql",
+  "schemas": [
+    {
+      "type": "custom",
+      "name": "mysql",
+      "factory": "som.make.mock.calcite.mysql.MysqlSchemaFactory",
+      "operand": {
+        "url": "jdbc:mysql://localhost:3306/db_calcite",
+        "username": "calcite",
+        "password": "Calcite_123"
+      }
+    }
+  ]
+}

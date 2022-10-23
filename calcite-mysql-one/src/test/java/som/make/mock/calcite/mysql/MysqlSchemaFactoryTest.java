@@ -1,7 +1,5 @@
 package som.make.mock.calcite.mysql;
 
-import org.apache.calcite.schema.SchemaPlus;
-import org.apache.calcite.tools.Frameworks;
 import org.apache.calcite.util.Sources;
 import org.junit.jupiter.api.Test;
 
@@ -11,8 +9,11 @@ import java.util.Properties;
 
 public class MysqlSchemaFactoryTest {
 
+//    private static final String jsonFile = "model.json";
+    private static final String jsonFile = "model-2.json";
+
     public ResultSet sql(String sql) throws SQLException {
-        String path = Sources.of(Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResource("model.json"))).file().getAbsolutePath();
+        String path = Sources.of(Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResource(jsonFile))).file().getAbsolutePath();
         Properties info = new Properties();
         info.put("model", path);
         info.put("unquotedCasing", "UNCHANGED");
@@ -23,7 +24,7 @@ public class MysqlSchemaFactoryTest {
 
     @Test
     public void test1() throws SQLException {
-        String sql = "select key from \"user:token:s0001\"";
+        String sql = "select * from sys_user";
         ResultSet resultSet = sql(sql);
     }
 

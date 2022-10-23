@@ -23,12 +23,13 @@ public class MysqlSchemaFactory implements SchemaFactory {
             while (rs.next()) {
                 final String table = rs.getString(3);
                 List<CdmColumn> columnList = getColumns(connection, table);
-                System.out.println(table);
+                tableMap.put(table, new MysqlTable(columnList, mysqlConfig));
             }
+            return new MysqlSchema(tableMap);
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
-        return null;
     }
 
     private List<CdmColumn> getColumns(Connection conn, String table) throws SQLException {
@@ -47,18 +48,11 @@ public class MysqlSchemaFactory implements SchemaFactory {
      * mysql 有的类型和 calcite不一样，需要修改下别名
      */
     private String typeMap(String type) {
-        switch (type.toLowerCase()) {
-            case "name":
-            case "text":
-            case "char":
-            case "character":
-            case "character varying":
-                return "varchar";
-            case "point":
-                return "geometry";
-            default:
-                return type;
-        }
+        return switch (type.toLowerCase()) {
+            case "name", "text", "char", "character", "character varying" -> "varchar";
+            case "point" -> "geometry";
+            default -> type;
+        };
     }
 
     /**
