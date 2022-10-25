@@ -11,6 +11,8 @@
     <modules>
         <module>calcite-optimize</module>
         <module>common-csv</module>
+        <module>calcite-mysql-one</module>
+        <module>calcite-redis-one</module>
     </modules>
 
     <properties>

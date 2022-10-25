@@ -12,11 +12,12 @@ public class MysqlToEnumerableConverterRule extends ConverterRule {
 
     static Predicate<RelNode> mysqlPredicate = relNode -> true;
 
-    public static final Config DEFAULT_CONFIG = Config.INSTANCE
+    public static final Config DEFAULT_CONFIG = (Config) Config.INSTANCE
             .withConversion(RelNode.class, mysqlPredicate,
                     MysqlRel.CONVENTION, EnumerableConvention.INSTANCE,
                     "EnumerableCalcRule")
-            .withRuleFactory(MysqlToEnumerableConverterRule::new);
+            .withRuleFactory(MysqlToEnumerableConverterRule::new)
+            .withDescription("MysqlToEnumerableConverterRule");
 
     public MysqlToEnumerableConverterRule(Config config) {
         super(config);
