@@ -18,8 +18,8 @@ import java.util.List;
 
 public class MysqlTable extends AbstractQueryableTable implements TranslatableTable {
 
-    private List<CdmColumn> columns;
-    private MysqlConfig mysqlConfig;
+    private final List<CdmColumn> columns;
+    private final MysqlConfig mysqlConfig;
 
     public MysqlTable(List<CdmColumn> columns, MysqlConfig mysqlConfig) {
         super(Type.class);
@@ -29,13 +29,13 @@ public class MysqlTable extends AbstractQueryableTable implements TranslatableTa
 
     @Override
     public <T> Queryable<T> asQueryable(QueryProvider queryProvider, SchemaPlus schema, String tableName) {
-        return null;
+        return (Queryable<T>) new MysqlQueryable(queryProvider, schema, this, mysqlConfig, tableName);
     }
 
     @Override
     public RelNode toRel(RelOptTable.ToRelContext context, RelOptTable relOptTable) {
         final RelOptCluster cluster = context.getCluster();
-        return new MysqlTableScan(this, null, cluster, cluster.traitSetOf(MysqlRelNode.CONVENTION), relOptTable);
+        return new MysqlTableScan(this, null, cluster, cluster.traitSetOf(MysqlRel.CONVENTION), relOptTable);
     }
 
     @Override
@@ -48,4 +48,5 @@ public class MysqlTable extends AbstractQueryableTable implements TranslatableTa
         });
         return typeFactory.createStructType(types, names);
     }
+
 }

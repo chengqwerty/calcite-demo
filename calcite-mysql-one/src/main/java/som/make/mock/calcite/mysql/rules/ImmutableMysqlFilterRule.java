@@ -22,7 +22,7 @@ public class ImmutableMysqlFilterRule {
         private final @Nullable String description;
         private final RelRule.OperandTransform operandSupplier;
 
-        private Config(ImmutableMysqlFilterRule.Config.Builder builder) {
+        private Config(Builder builder) {
             this.description = builder.description;
             if (builder.relBuilderFactory != null) {
                 initShim.withRelBuilderFactory(builder.relBuilderFactory);
@@ -104,7 +104,7 @@ public class ImmutableMysqlFilterRule {
         public RelRule.Config withRelBuilderFactory(RelBuilderFactory factory) {
             if (this.relBuilderFactory == factory) return this;
             RelBuilderFactory newValue = Objects.requireNonNull(factory, "relBuilderFactory");
-            return new ImmutableMysqlFilterRule.Config(newValue, this.description, this.operandSupplier);
+            return new Config(newValue, this.description, this.operandSupplier);
         }
 
         @Override
@@ -124,14 +124,14 @@ public class ImmutableMysqlFilterRule {
         @Override
         public RelRule.Config withDescription(@org.checkerframework.checker.nullness.qual.Nullable String description) {
             if (Objects.equals(this.description, description)) return this;
-            return new ImmutableMysqlFilterRule.Config(this.relBuilderFactory, description, this.operandSupplier);
+            return new Config(this.relBuilderFactory, description, this.operandSupplier);
         }
 
         @Override
         public RelRule.Config withOperandSupplier(RelRule.OperandTransform transform) {
             if (this.operandSupplier == transform) return this;
             RelRule.OperandTransform newValue = Objects.requireNonNull(transform, "operandSupplier");
-            return new ImmutableMysqlFilterRule.Config(this.relBuilderFactory, this.description, newValue);
+            return new Config(this.relBuilderFactory, this.description, newValue);
         }
 
         @Override
@@ -149,11 +149,11 @@ public class ImmutableMysqlFilterRule {
         @Override
         public boolean equals(@Nullable Object another) {
             if (this == another) return true;
-            return another instanceof ImmutableMysqlFilterRule.Config
-                    && equalTo((ImmutableMysqlFilterRule.Config) another);
+            return another instanceof Config
+                    && equalTo((Config) another);
         }
 
-        private boolean equalTo(ImmutableMysqlFilterRule.Config another) {
+        private boolean equalTo(Config another) {
             return relBuilderFactory.equals(another.relBuilderFactory)
                     && Objects.equals(description, another.description)
                     && operandSupplier.equals(another.operandSupplier);
@@ -193,17 +193,17 @@ public class ImmutableMysqlFilterRule {
          * @param instance The instance to copy
          * @return A copied immutable Config instance
          */
-        public static ImmutableMysqlFilterRule.Config copyOf(MysqlFilterRule.Config instance) {
-            if (instance instanceof ImmutableMysqlFilterRule.Config) {
-                return (ImmutableMysqlFilterRule.Config) instance;
+        public static Config copyOf(MysqlFilterRule.Config instance) {
+            if (instance instanceof Config) {
+                return (Config) instance;
             }
-            return ImmutableMysqlFilterRule.Config.builder()
+            return Config.builder()
                     .from(instance)
                     .build();
         }
 
-        public static ImmutableMysqlFilterRule.Config.Builder builder() {
-            return new ImmutableMysqlFilterRule.Config.Builder();
+        public static Builder builder() {
+            return new Builder();
         }
 
         public static final class Builder {
@@ -258,8 +258,8 @@ public class ImmutableMysqlFilterRule {
                 return this;
             }
 
-            public ImmutableMysqlFilterRule.Config build() {
-                return new ImmutableMysqlFilterRule.Config(this);
+            public Config build() {
+                return new Config(this);
             }
 
         }

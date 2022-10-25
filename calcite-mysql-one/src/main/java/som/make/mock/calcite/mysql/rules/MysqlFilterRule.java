@@ -3,8 +3,7 @@ package som.make.mock.calcite.mysql.rules;
 import org.apache.calcite.plan.*;
 import org.apache.calcite.rel.RelNode;
 import org.apache.calcite.rel.logical.LogicalFilter;
-import org.apache.calcite.rel.logical.LogicalProject;
-import som.make.mock.calcite.mysql.MysqlRelNode;
+import som.make.mock.calcite.mysql.MysqlRel;
 import som.make.mock.calcite.mysql.MysqlTableScan;
 
 public class MysqlFilterRule extends RelRule<MysqlFilterRule.Config> {
@@ -30,9 +29,9 @@ public class MysqlFilterRule extends RelRule<MysqlFilterRule.Config> {
     }
 
     public RelNode convert(LogicalFilter logicalFilter) {
-        final RelTraitSet traitSet = logicalFilter.getTraitSet().replace(MysqlRelNode.CONVENTION);
+        final RelTraitSet traitSet = logicalFilter.getTraitSet().replace(MysqlRel.CONVENTION);
         return new MysqlFilter(logicalFilter.getCluster(), traitSet,
-                convert(logicalFilter.getInput(), MysqlRelNode.CONVENTION),
+                convert(logicalFilter.getInput(), MysqlRel.CONVENTION),
                 logicalFilter.getCondition());
     }
 
